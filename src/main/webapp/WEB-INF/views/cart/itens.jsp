@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +34,10 @@
 			<div id="header-content">
 				<nav id="main-nav">
 					<ul class="clearfix">
+						<security:authorize access="isAuthenticated()">
+							<li><a href="${s:mvcUrl('PC#list').build()}" rel="nofollow">List of Products</a></li>
+							<li><a href="${s:mvcUrl('PC#form').build()}" rel="nofollow">Create Products</a></li>
+						</security:authorize>	
 						<li><a href="${s:mvcUrl('CC#itens').build()}" rel="nofollow">Cart (${cart.quantity})</a></li>
 						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">About Us</a></li>
 						<li><a href="/pages/perguntas-frequentes" rel="nofollow">Frequent Questions</a></li>
@@ -87,9 +93,9 @@
 				        </td>
 				        <td class="numeric-cell">${cart.getTotal(item)}</td>
 				        <td class="remove-item">
-				            <form action="${s:mvcUrl('CC#remove').arg(0, item.product.id).arg(1, item.priceType).build() }" method="post">
+				            <form:form servletRelativeAction="${s:mvcUrl('CC#remove').arg(0, item.product.id).arg(1, item.priceType).build() }" method="post">
 				                <input type="image" src="/codehouse/resources/imagens/excluir.png" alt="Exclude" title="Exclude" />
-				            </form>
+				            </form:form>
 				        </td>
 				    </tr>
 				</c:forEach>
@@ -101,6 +107,7 @@
 				          	<input type="submit" class="checkout" name="checkout" value="Finalize shopping" />
 			          	</form>
 			          </td>
+			          <td></td>
 			          <td class="numeric-cell">${cart.total}</td>
 			          <td></td>
 			        </tr>

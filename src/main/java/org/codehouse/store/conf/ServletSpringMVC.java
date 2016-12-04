@@ -9,9 +9,14 @@ import javax.servlet.ServletRegistration.Dynamic;
 
 public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+  /**
+   * Load the configurations during the application start.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return null;
+    return new Class[] {SecurityConfiguration.class, AppWebConfiguration.class, JPAConfiguration.class};
   }
 
   /**
@@ -21,7 +26,7 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
    */
   @Override
   protected Class<?>[] getServletConfigClasses() {
-    return new Class[] {AppWebConfiguration.class, JPAConfiguration.class};
+    return new Class[] {};
   }
 
   /**
