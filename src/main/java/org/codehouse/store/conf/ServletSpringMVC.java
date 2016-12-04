@@ -11,20 +11,34 @@ public class ServletSpringMVC extends AbstractAnnotationConfigDispatcherServletI
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    // TODO Auto-generated method stub
     return null;
   }
 
+  /**
+   * Which class will take care of the configuration about the application.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Override
   protected Class<?>[] getServletConfigClasses() {
     return new Class[] {AppWebConfiguration.class, JPAConfiguration.class};
   }
 
+  /**
+   * Specify witch URI Spring will take care. After the / everything will be controlled by Spring
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Override
   protected String[] getServletMappings() {
     return new String[] {"/"};
   }
 
+  /**
+   * Configure the filters for the application. Specify the encoding used by the server. UTF-8
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Override
   protected Filter[] getServletFilters() {
     CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();

@@ -34,6 +34,8 @@
 				<nav id="main-nav">
 					
 					<ul class="clearfix">
+						<li><a href="${s:mvcUrl('PC#list').build()}" rel="nofollow">List of Products</a></li>
+						<li><a href="${s:mvcUrl('PC#form').build()}" rel="nofollow">Create Products</a></li>
 						<li><a href="${s:mvcUrl('CC#itens').build()}" rel="nofollow">Cart (${cart.quantity})</a></li>
 						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">About Us</a></li>
 						<li><a href="/pages/perguntas-frequentes" rel="nofollow">Frequent Questions</a></li>

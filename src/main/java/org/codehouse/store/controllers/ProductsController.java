@@ -31,6 +31,11 @@ public class ProductsController {
   // @Autowired
   // private FileSaver fileSaver;
 
+  /**
+   * Responsable for the binding beetwen the entity Product and ProductValidation class.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @InitBinder
   public void initBinder(WebDataBinder binder) {
     binder.addValidators(new ProductValidation());

@@ -38,6 +38,11 @@ import java.util.concurrent.TimeUnit;
 @EnableCaching
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
+  /**
+   * Method to find where the views folder are and witch suffix will be used. It`s possible to specify witch bean will be exposed to the view.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Bean
   public InternalResourceViewResolver internalResourceViewResolver() {
     InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -52,11 +57,24 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
     registry.addResourceHandler("/views/**").addResourceLocations("/views/");
   }
 
+  /**
+   * Configure the default servlet to handle requests to CSS and JS files.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   * @since 0.0.1
+   *
+   * @param configurer
+   */
   @Override
   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
     configurer.enable();
   }
 
+  /**
+   * Load message files and specify the encoding used. The cache is used to reload the file.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Bean
   public MessageSource messageSource() {
     ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -66,6 +84,11 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
     return messageSource;
   }
 
+  /**
+   * Servide responsable for formatting properties. In this case will format every date.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Bean
   public FormattingConversionService mvcConversionService() {
     DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
@@ -80,11 +103,19 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
     return new StandardServletMultipartResolver();
   }
 
+  /**
+   * Configuration to handle with Rest request using Spring.
+   */
   @Bean
   public RestTemplate restTemplate() {
     return new RestTemplate();
   }
 
+  /**
+   * Manages the cache of the application.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Bean
   public CacheManager cacheManager() {
     CacheBuilder<Object, Object> builder =
@@ -94,6 +125,11 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
     return manager;
   }
 
+  /**
+   * Specify with resources can be resolved by the application, in this case, can be a JSP files and JSON files.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Bean
   public ViewResolver contentNegotiationViewResolver(ContentNegotiationManager manager) {
     List<ViewResolver> viewResolvers = new ArrayList<>();

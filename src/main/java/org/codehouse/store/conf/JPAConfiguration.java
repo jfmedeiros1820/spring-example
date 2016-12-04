@@ -14,6 +14,11 @@ import javax.persistence.EntityManagerFactory;
 @EnableTransactionManagement
 public class JPAConfiguration {
 
+  /**
+   * Method to configure the entityManager for the connection
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Bean
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
     LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -41,6 +46,11 @@ public class JPAConfiguration {
     return factoryBean;
   }
 
+  /**
+   * Method to specify how the transaction will be handled.
+   * 
+   * @author Joao Felipe de Medeiros Moreira
+   */
   @Bean
   public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
     return new JpaTransactionManager(emf);
