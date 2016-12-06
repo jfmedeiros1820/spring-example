@@ -14,9 +14,28 @@
 							<li><a href="${s:mvcUrl('PC#list').build()}" rel="nofollow">List of Products</a></li>
 							<li><a href="${s:mvcUrl('PC#form').build()}" rel="nofollow">Create Products</a></li>
 						</security:authorize>
-						<li><a href="${s:mvcUrl('CC#itens').build()}" rel="nofollow">Cart (${cart.quantity})</a></li>
-						<li><a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">About Us</a></li>
+						<li>
+							<a href="${s:mvcUrl('CC#itens').build()}" rel="nofollow">
+								<s:message code="menu.cart" arguments="${cart.quantity}" />
+							</a>
+						</li>
+						<li>
+							<a href="/pages/sobre-a-casa-do-codigo" rel="nofollow">
+								<s:message code="menu.about"/>
+							</a>
+						</li>
 						<li><a href="/pages/perguntas-frequentes" rel="nofollow">Frequent Questions</a></li>
+						<li>
+						    <a href="?locale=pt" rel="nofollow">
+						        <s:message code="menu.pt"/>
+						    </a>
+						</li>
+						
+						<li>
+						    <a href="?locale=en_UR" rel="nofollow">
+						        <s:message code="menu.en"/>
+						    </a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -24,14 +43,14 @@
 	</header>
 	<nav class="categories-nav">
 		<ul class="container">
-			<li class="category"><a href="http://www.casadocodigo.com.br">Home</a></li>
-			<li class="category"><a href="/collections/livros-de-agile">Agile </a></li>
-			<li class="category"><a href="/collections/livros-de-front-end">Front End </a></li>
-			<li class="category"><a href="/collections/livros-de-games">Games </a></li>
-			<li class="category"><a href="/collections/livros-de-java">Java </a></li>
-			<li class="category"><a href="/collections/livros-de-mobile">Mobile </a></li>
-			<li class="category"><a href="/collections/livros-desenvolvimento-web"> Web </a></li>
-			<li class="category"><a href="/collections/outros"> Others </a></li>
+			<li class="category"><a href="http://www.casadocodigo.com.br"><s:message code="nav.category.home"/></a></li>
+			<li class="category"><a href="/collections/livros-de-agile"><s:message code="nav.category.agile"/> </a></li>
+			<li class="category"><a href="/collections/livros-de-front-end"><s:message code="nav.category.front_end"/></a></li>
+			<li class="category"><a href="/collections/livros-de-games"><s:message code="nav.category.games"/></a></li>
+			<li class="category"><a href="/collections/livros-de-java"><s:message code="nav.category.java"/></a></li>
+			<li class="category"><a href="/collections/livros-de-mobile"><s:message code="nav.category.mobile"/></a></li>
+			<li class="category"><a href="/collections/livros-desenvolvimento-web"><s:message code="nav.category.webdevelopment"/></a></li>
+			<li class="category"><a href="/collections/outros"><s:message code="nav.category.others"/></a></li>
 		</ul>
 	</nav>
 </body>
