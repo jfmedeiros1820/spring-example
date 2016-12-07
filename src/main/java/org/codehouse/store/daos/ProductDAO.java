@@ -1,13 +1,16 @@
 package org.codehouse.store.daos;
 
+import org.codehouse.store.models.PriceType;
 import org.codehouse.store.models.Product;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Repository
 @Transactional
@@ -29,5 +32,12 @@ public class ProductDAO {
         Product.class)
         .setParameter("id", id)
         .getSingleResult();
+  }
+
+  public BigDecimal sumPricesByType(PriceType type) {
+    TypedQuery<BigDecimal> query = manager.createQuery(
+        "select sum(price.value) from Product p join p.prices price where price.priceType = :type", BigDecimal.class);
+    query.setParameter("type", type);
+    return query.getSingleResult();
   }
 }
