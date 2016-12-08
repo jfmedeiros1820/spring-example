@@ -2,8 +2,12 @@ package org.codehouse.store.controllers;
 
 import org.codehouse.store.models.Cart;
 import org.codehouse.store.models.PaymentData;
+import org.codehouse.store.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,12 +30,17 @@ public class PaymentController {
   @Autowired
   private RestTemplate restTemplate;
 
+  @Autowired
+  private MailSender sender;
+
   @RequestMapping(value = "/finalize", method = RequestMethod.POST)
-  public Callable<ModelAndView> finalizer(RedirectAttributes model) {
+  public Callable<ModelAndView> finalizer(@AuthenticationPrincipal User user, RedirectAttributes model) {
     return () -> {
       try {
         String uri = "http://book-payment.herokuapp.com/payment";
         String response = restTemplate.postForObject(uri, new PaymentData(cart.getTotal()), String.class);
+
+        sendEmailProductBought(user);
 
         model.addFlashAttribute("success", response);
         return new ModelAndView("redirect:/products");
@@ -41,5 +50,15 @@ public class PaymentController {
         return new ModelAndView("redirect:/products");
       }
     };
+  }
+
+  private void sendEmailProductBought(User user) {
+    SimpleMailMessage email = new SimpleMailMessage();
+    email.setSubject("Purchase made successfully!");
+    email.setTo(user.getUsername());
+    email.setText("Perchase approved successfully with value of " + cart.getTotal());
+    email.setFrom("buy@housecode.com.br");
+
+    sender.send(email);
   }
 }
