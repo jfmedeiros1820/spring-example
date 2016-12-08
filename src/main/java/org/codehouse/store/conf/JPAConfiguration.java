@@ -22,7 +22,10 @@ public class JPAConfiguration {
    * @author Joao Felipe de Medeiros Moreira
    */
   @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+      DataSource dataSource,
+      Properties aditionalProperties) {
+
     LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
     HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 
@@ -30,16 +33,16 @@ public class JPAConfiguration {
 
     factoryBean.setDataSource(dataSource);
 
-    Properties props = aditionalProperties();
-
-    factoryBean.setJpaProperties(props);
+    factoryBean.setJpaProperties(aditionalProperties);
 
     factoryBean.setPackagesToScan("org.codehouse.store.models");
 
     return factoryBean;
   }
 
-  private Properties aditionalProperties() {
+  @Bean
+  @Profile("dev")
+  public Properties aditionalProperties() {
     Properties props = new Properties();
     props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
     props.setProperty("hibernate.show_sql", "true");
